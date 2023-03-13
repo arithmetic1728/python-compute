@@ -115,6 +115,11 @@ class InstancesTransport(abc.ABC):
             and hasattr(service_account.Credentials, "with_always_use_jwt_access")
         ):
             credentials = credentials.with_always_use_jwt_access(True)
+            from google.auth import version
+            client_info.auth_version = version.__version__
+            client_info.auth_request_type = "access-token"
+            client_info.cred_type = "sa-jwt"
+
 
         # Save the credentials.
         self._credentials = credentials
